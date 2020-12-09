@@ -31,6 +31,25 @@ body:before {
     left: 0;
     content: "";
 }
+#page-header {
+    position: relative;
+    z-index: 10;
+}
+#chat-rooms {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+    margin-top: 30px;
+    height: calc(100% - 60px);
+    max-height: 600px;
+    position: relative;
+    z-index: 1000;
+}
+#roomsArea {
+    display: block;
+}
 */
 
 .clearfix:after {
