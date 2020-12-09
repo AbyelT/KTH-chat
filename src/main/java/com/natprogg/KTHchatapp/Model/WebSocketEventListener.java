@@ -1,4 +1,4 @@
-package com.natprogg.KTHchatapp;
+package com.natprogg.KTHchatapp.Model;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 
 @Component
 public class WebSocketEventListener {
-
     private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
 
     @Autowired
