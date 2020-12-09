@@ -20,17 +20,18 @@ body {
     background-color: #f4f4f4;
     height: 100%;
 }
-
+/*
 body:before {
     height: 50%;
     width: 100%;
     position: absolute;
+    z-index: 0;
+    background: cornflowerblue;
     top: 0;
     left: 0;
-    background: #1ebea5;
     content: "";
-    z-index: 0;
 }
+*/
 
 .clearfix:after {
     display: block;
@@ -104,11 +105,27 @@ button.accent {
     color: #fff;
 }
 
-#username-page {
+.header{
+    display: block;
+    font-size: 30px;
     text-align: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    position: relative;
+    z-index: 0;
+    background: lightblue;
 }
 
-.username-page-container {
+#header-title{
+    padding:0px;
+    margin:0px;
+}
+
+#start-page {
+    text-align: center;
+    display: block;
+}
+
+.start-page-container {
     background: #fff;
     box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
     border-radius: 2px;
@@ -128,10 +145,9 @@ button.accent {
     margin-top: -160px;
 }
 
-.username-page-container .username-submit {
+.start-page-container .username-submit {
     margin-top: 10px;
 }
-
 
 #chat-page {
     position: relative;
@@ -265,7 +281,7 @@ button.accent {
         height: calc(100% - 30px);
     }
 
-    .username-page-container {
+    .start-page-container {
         width: auto;
         margin-left: 15px;
         margin-right: 15px;
