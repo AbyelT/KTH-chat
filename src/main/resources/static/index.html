@@ -9,7 +9,11 @@
     <noscript>
       <h2>Sorry! Your browser doesn't support Javascript</h2>
     </noscript>
-
+    <div id="page-header">
+        <h3>KTH-CHAT</h3>
+        <p>Username goes here</p>
+        <button type="submit">Logout</button>
+    </div>
     <div id="username-page">
         <div class="username-page-container">
             <h1 class="title">Enter your username</h1>
@@ -45,7 +49,30 @@
             </form>
         </div>
     </div>
-
+    <div id="chat-rooms" class="hidden">
+        <ul id="roomsArea">
+            <!-- This is where all the rooms will go! -->
+            <li style="display: block; width:100%;">
+                <div style ="display:inline-block; width:100%;">
+                    <h2>Room name goes here</h2>
+                    <button type="submit" class="joinRoom">Join</button>
+                </div>
+            </li>
+            <li style="display: block; width:100%;">
+                <div style ="display:inline-block; width:100%;">
+                    <h2>Room name goes here</h2>
+                    <button type="submit" class="joinRoom">Join</button>
+                </div>
+            </li>
+            <li style="display: block; width:100%;">
+                <div style ="display: inline-block; width:100%;">
+                    <p style ="width:25%;">Room name goes here</p>
+                    <button type="submit" class="joinRoom">Join</button>
+                </div>
+            </li>
+        </ul>
+        
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script src="/js/main.js"></script>
