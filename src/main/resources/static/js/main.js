@@ -27,7 +27,7 @@ function connect(event) {
         startPage.classList.add('hidden');
         chatPage.classList.remove('hidden');
 
-        var socket = new SockJS('/ws');
+        var socket = new SockJS('/KTH-chat');
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, onConnected, onError);
