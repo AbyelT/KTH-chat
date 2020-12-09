@@ -1,8 +1,9 @@
 'use strict';
 
-var usernamePage = document.querySelector('#username-page');
+var startPage = document.querySelector('#start-page');
+var header = document.querySelector('.header');
 var chatPage = document.querySelector('#chat-page');
-var usernameForm = document.querySelector('#usernameForm');
+var loginForm = document.querySelector('#loginForm');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
@@ -10,6 +11,7 @@ var connectingElement = document.querySelector('.connecting');
 
 var stompClient = null;
 var username = null;
+var password = null;
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -18,9 +20,11 @@ var colors = [
 
 function connect(event) {
     username = document.querySelector('#name').value.trim();
+    password = document.querySelector('#pass').value.trim();
 
-    if(username) {
-        usernamePage.classList.add('hidden');
+    if(username && password) {
+        startPage.classList.add('hidden');
+        startPage.classList.add('hidden');
         chatPage.classList.remove('hidden');
 
         var socket = new SockJS('/ws');
@@ -114,6 +118,6 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-usernameForm.addEventListener('submit', connect, true)
+loginForm.addEventListener('submit', connect, true)
 messageForm.addEventListener('submit', sendMessage, true)
 
