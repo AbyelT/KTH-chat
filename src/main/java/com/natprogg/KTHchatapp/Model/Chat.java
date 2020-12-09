@@ -1,4 +1,4 @@
-package com.natprogg.KTHchatapp;
+package com.natprogg.KTHchatapp.Model;
 
 public class Chat {
 
