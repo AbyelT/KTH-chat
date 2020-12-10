@@ -7,11 +7,15 @@ var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
+
+//var joinButton2 = document.querySelector('.joinRoom2');
+
 var chatRooms = document.querySelector('#chat-rooms');
 
 var stompClient = null;
 var username = null;
 var password = null;
+var room = null;
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -24,10 +28,9 @@ function createAccount(event) {
 
     if(username && password) {
         startPage.classList.add('hidden');
+        startpageContainer.classList.add('hidden');
         chatRooms.classList.remove('hidden');
-        var socket = new SockJS('/KTHchat');
-        stompClient = Stomp.over(socket);
-        stompClient.connect(username, password, onConnected, onError);
+
     }
     event.preventDefault();
 }
@@ -51,15 +54,31 @@ function login(event) {
 }
 */
 
+function joinChat(event) {
+    room = event.target.parentElement.id;
+    console.log(event.target);
+    console.log("hello");
+    var socket = new SockJS('/KTHchat');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, onConnected, onError);
+    event.preventDefault();
+}
+
 
 function onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public', onMessageReceived);
+    stompClient.subscribe('/topic/' + room, onMessageReceived);
+    
+    //change page
+    chatRooms.classList.add('hidden');
+    chatPage.classList.remove('hidden');
+    
     // Tell your username to the server
-    stompClient.send("/app/chat.addUser",
+    console.log("connected!")
+    stompClient.send("/app/chat.addUser/" + room,
         {},
         JSON.stringify({sender: username, type: 'JOIN'})
-    )
+    );
     
     //Hide the connecting element
     connectingElement.classList.add('hidden');
@@ -79,7 +98,7 @@ function sendMessage(event) {
             content: messageInput.value,
             type: 'CHAT'
         };
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/chat.sendMessage/" + room, {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();
@@ -133,7 +152,12 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-loginForm.addEventListener('submit', login, true);
-messageForm.addEventListener('submit', sendMessage, true);
+var rooms = document.getElementsByClassName('joinRoom');
 
-//chatroomSelect.addEventListener('submit', joinChatroom, true)
+console.log(rooms);
+
+for(var i = 0; i < rooms.length; i++) { 
+  rooms[i].addEventListener('click', joinChat, true);
+}
+loginForm.addEventListener('submit', createAccount, true);
+messageForm.addEventListener('submit', sendMessage, true);

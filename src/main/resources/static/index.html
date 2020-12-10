@@ -14,8 +14,8 @@
         <h1 id="header-title">KTH-chat</h1>
         <h3>A chat for KTH students!</h3>
     </div>
-    <div id="start-page">
-        <div class="start-page-container">
+    <div id="start-page" class="hidden">
+        <div id="start-page-container">
             <h2 class="login-title">Login</h2>
             <form id="loginForm" name="loginForm">
                 <div class="form-group">
@@ -53,25 +53,25 @@
         </div>
     </div>
     
-    <div id="chat-rooms" class="hidden">
+    <div id="chat-rooms">
         <ul id="roomsArea">
             <!-- This is where all the rooms will go! -->
             <li style="display: block; width:100%;">
                 <div id="room1" style ="display:inline-block; width:100%;">
                     <h2>Test_room_1</h2>
-                    <button type="submit" class="joinRoom">Join</button>
+                    <button name="joinRoom" type="button" class="joinRoom">Join</button>
                 </div>
             </li>
             <li style="display: block; width:100%;">
                 <div id="room2" style ="display:inline-block; width:100%;">
                     <h2>Test_room_2</h2>
-                    <button type="submit" class="joinRoom">Join</button>
+                    <button name="joinRoom" type="button" class="joinRoom">Join</button>
                 </div>
             </li>
             <li style="display: block; width:100%;">
                 <div style ="display: inline-block; width:100%;">
                     <p style ="width:25%;">Room name goes here</p>
-                    <button type="submit" class="joinRoom">Join</button>
+                    <button name="joinRoom" type="button" class="joinRoom">Join</button>
                 </div>
             </li>
         </ul>
