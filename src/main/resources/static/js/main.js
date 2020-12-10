@@ -1,6 +1,5 @@
-'use strict';
-
 var startPage = document.querySelector('#start-page');
+var startpageContainer = document.querySelector('#start-page-container');
 var header = document.querySelector('.header');
 var chatPage = document.querySelector('#chat-page');
 var loginForm = document.querySelector('#loginForm');
@@ -9,6 +8,7 @@ var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
 var chatRooms = document.querySelector('#chat-rooms');
+
 var stompClient = null;
 var username = null;
 var password = null;
@@ -18,28 +18,43 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-function connect(event) {
+function createAccount(event) {
     username = document.querySelector('#name').value.trim();
     password = document.querySelector('#pass').value.trim();
 
     if(username && password) {
         startPage.classList.add('hidden');
-        startPage.classList.add('hidden');
-        chatPage.classList.remove('hidden');
-
-        var socket = new SockJS('/KTH-chat');
+        chatRooms.classList.remove('hidden');
+        var socket = new SockJS('/KTHchat');
         stompClient = Stomp.over(socket);
-
-        stompClient.connect({}, onConnected, onError);
+        stompClient.connect(username, password, onConnected, onError);
     }
     event.preventDefault();
 }
+
+/*
+function login(event) {
+    username = document.querySelector('#name').value.trim();
+    password = document.querySelector('#pass').value.trim();
+    
+    if(username && password) {
+        
+        //connect to stomp server
+        //try authentication
+        
+        //if it works: update page to chatroom overview
+        //else: remain in the same page, show error tag
+        
+       
+    }
+    event.preventDefault();
+}
+*/
 
 
 function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
-
     // Tell your username to the server
     stompClient.send("/app/chat.addUser",
         {},
@@ -49,7 +64,6 @@ function onConnected() {
     //Hide the connecting element
     connectingElement.classList.add('hidden');
 }
-
 
 function onError(error) {
     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
@@ -119,6 +133,7 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-loginForm.addEventListener('submit', connect, true)
-messageForm.addEventListener('submit', sendMessage, true)
+loginForm.addEventListener('submit', login, true);
+messageForm.addEventListener('submit', sendMessage, true);
 
+//chatroomSelect.addEventListener('submit', joinChatroom, true)

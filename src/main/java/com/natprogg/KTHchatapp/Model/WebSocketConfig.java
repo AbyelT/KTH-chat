@@ -13,7 +13,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     //skapar en WebSocket endpoint för alla clienter att koppla sig till
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/KTH-chat").withSockJS();
+        registry.addEndpoint("/KTHchat").withSockJS();
         //fetch existing chatrroms from database
         //for each : add an endpoint
         //registry.addEndpoint("seriösChat").withSockJS();
@@ -23,9 +23,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     //vidarebefodrar alla inkommande meddelanden till andra klienter
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-       
         registry.setApplicationDestinationPrefixes("/app");
         registry.enableSimpleBroker("/topic");
-        
     }
 }
