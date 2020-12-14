@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
         <title>KTH-chat</title>
-        <link rel="stylesheet" href="/css/main.css" />
+        <link rel="stylesheet" href="/css/main.css"/>
     </head>
     <body>
         <noscript>
@@ -20,7 +20,7 @@
     <div id="start-page" class="hidden">
         <div id="start-page-container">
             <h2 class="login-title">Login</h2>
-            <form id="loginForm" name="loginForm">
+            <form id="loginForm" name="loginForm" action="/chatroomOverview.html" method="POST">
                 <div class="form-group">
                     <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
                 </div>
@@ -37,7 +37,6 @@
                     <div class="start-btn" id="register">
                         <button type="submit">Register</button>
                     </div>
-                </div>
                 </div>
             </form>
         </div>
@@ -90,6 +89,8 @@
             </form>
         </div>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="/js/main.js"></script>
     </body>
 </html>
