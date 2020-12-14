@@ -20,7 +20,7 @@ body {
     background-color: #f4f4f4;
     height: 100%;
 }
-/*
+
 body:before {
     height: 50%;
     width: 100%;
@@ -50,7 +50,7 @@ body:before {
 #roomsArea {
     display: block;
 }
-*/
+
 
 .clearfix:after {
     display: block;
