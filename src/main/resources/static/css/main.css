@@ -21,6 +21,7 @@ body {
     height: 100%;
 }
 
+/*
 body:before {
     height: 50%;
     width: 100%;
@@ -331,3 +332,4 @@ button.accent {
         font-size: 1.1em;
     }
 }
+*/

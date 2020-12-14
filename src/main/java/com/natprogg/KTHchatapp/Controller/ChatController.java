@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.natprogg.KTHchatapp.Model.Login;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -25,11 +26,13 @@ public class ChatController {
     private UserRepository userRepository;
     
     
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
+    @MessageMapping("/chat.sendMessage/{room}")
+    @SendTo("/topic/{room}")
     public Chat sendMessage(@Payload Chat Chat) {
         return Chat;
     }
+    
+    
     
     /*
     @MessageMapping("/chat.sendMessage/")
@@ -38,16 +41,24 @@ public class ChatController {
         return Chat;
     }
     */
-
+    
+    /*
     @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
+    @SendTo("/topic/{room}")
     public Chat addUser(@Payload Chat Chat, SimpMessageHeaderAccessor headerAccessor) {   
         // Add username in web socket session
         headerAccessor.getSessionAttributes().put("username", Chat.getSender());
         return Chat;
     }
+    */
     
-    
+    @MessageMapping("/chat.userJoin/{room}")
+    @SendTo("/topic/{room}")
+    public Chat addUser1(@DestinationVariable String room, @Payload Chat Chat, SimpMessageHeaderAccessor headerAccessor) {   
+        // Add username in web socket session
+        headerAccessor.getSessionAttributes().put("username", Chat.getSender());
+        return Chat;
+    }
 
     @MessageMapping("/chat.addUser")
     @PostMapping(path="/add") // Map ONLY POST Requests
