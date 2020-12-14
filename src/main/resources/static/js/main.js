@@ -32,7 +32,7 @@ function createAccount(event) {
     password = document.querySelector('#pass').value.trim();
 
     if(username && password && mail) {
-        
+        console.log("did we get here");
         //connect to client, check if account already exists
         socket = new SockJS('/KTHchat');
         stompClient = Stomp.over(socket);
