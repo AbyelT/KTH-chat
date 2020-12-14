@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html>
-  <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-      <title>KTH-chat</title>
-      <link rel="stylesheet" href="/css/main.css" />
-      <link rel="stylesheet" href="css/main.css" type="text/css">
-  </head>
-  <body>
-    <noscript>
-      <h2>KTH-chat requires JavaScript support in order to work</h2>
-    </noscript>    
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" charset="utf-8">
+        <title>KTH-chat</title>
+        <link rel="stylesheet" href="/css/main.css" />
+    </head>
+    <body>
+        <noscript>
+            <h2>KTH-chat requires JavaScript support in order to work</h2>
+        </noscript>   
+        
+    <!--The header, follows everywhere-->
     <div class="header">
         <h1 id="header-title">KTH-chat</h1>
         <h3>A chat for KTH students!</h3>
     </div>
+
+    <!--The start page-->
     <div id="start-page" class="hidden">
         <div id="start-page-container">
             <h2 class="login-title">Login</h2>
@@ -22,40 +25,27 @@
                     <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
                 </div>
                 <div class="form-group">
+                    <input type="text" id="mail" placeholder="Mail" autocomplete="off" class="form-control" />
+                </div>
+                <div class="form-group">
                     <input type="password" id="pass" placeholder="Password" autocomplete="off" class="form-control" />
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="accent username-submit">Start Chatting</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="chat-page" class="hidden">
-        <div class="chat-container">
-            <div class="chat-header">
-                <h2>Welcome to the KTH chat</h2>
-            </div>
-            <div class="connecting">
-                Connecting...
-            </div>
-            <ul id="messageArea">
-
-            </ul>
-            <form id="messageForm" name="messageForm">
-                <div class="form-group">
-                    <div class="input-group clearfix">
-                        <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
-                        <button type="submit" class="primary">Send</button>
+                <div id="start-buttons"> 
+                    <div class="start-btn" id="login">
+                        <button type="submit">Login</button>
+                    </div>
+                    <div class="start-btn" id="register">
+                        <button type="submit">Register</button>
                     </div>
                 </div>
+                </div>
             </form>
         </div>
     </div>
-    
-    <div id="chat-rooms">
+
+    <!-- The chatroom overview, this is where all the rooms will go! -->
+    <div id="chat-rooms" class="hidden">
         <ul id="roomsArea">
-            <!-- This is where all the rooms will go! -->
             <li style="display: block; width:100%;">
                 <div id="room1" style ="display:inline-block; width:100%;">
                     <h2>Test_room_1</h2>
@@ -69,16 +59,37 @@
                 </div>
             </li>
             <li style="display: block; width:100%;">
-                <div style ="display: inline-block; width:100%;">
-                    <p style ="width:25%;">Room name goes here</p>
+                <div id="room3" style ="display:inline-block; width:100%;">
+                    <h2>Test_room_3</h2>
                     <button name="joinRoom" type="button" class="joinRoom">Join</button>
                 </div>
             </li>
-        </ul>
-        
+        </ul> 
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script src="/js/main.js"></script>
-  </body>
+
+    <!-- The chatroom, all messages are seen here -->
+    <div id="chat-page" class="hidden">
+        <div class="chat-container">
+            <div class="leave-room">
+                <button class="leave-btn" type="button">Leave room</button>
+            </div>
+            <div class="chat-header">
+                <h2>Room: "roomname here"</h2>
+            </div>
+            <div class="connecting">
+                Connecting...
+            </div>
+            <ul id="messageArea">
+
+            </ul>
+            <form id="messageForm" name="messageForm">
+                <div id="message-box">
+                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off"/>
+                    <button type="submit" class="primary">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    </body>
 </html>

@@ -2,6 +2,7 @@ package com.natprogg.KTHchatapp.Model;
 
 public class Login {
     private String userid;
+    private String mail;
     private String password;
 
     public String getUserid() {

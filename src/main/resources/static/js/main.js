@@ -1,94 +1,103 @@
+//pages & components
 var startPage = document.querySelector('#start-page');
-var startpageContainer = document.querySelector('#start-page-container');
 var header = document.querySelector('.header');
+var chatOverviewPage = document.querySelector('#chat-rooms');
 var chatPage = document.querySelector('#chat-page');
-var loginForm = document.querySelector('#loginForm');
+var connectingElement = document.querySelector('.connecting');
+var rooms = document.getElementsByClassName('joinRoom');
+
+//buttons & input
+var login = document.querySelector('#login');
+var register = document.querySelector('#register');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
-var connectingElement = document.querySelector('.connecting');
 
-//var joinButton2 = document.querySelector('.joinRoom2');
-
-var chatRooms = document.querySelector('#chat-rooms');
-
+//variables
 var stompClient = null;
+var socket = null;
 var username = null;
+var mail = null;
 var password = null;
 var room = null;
 
-var colors = [
+var userColors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
 function createAccount(event) {
     username = document.querySelector('#name').value.trim();
+    mail = document.querySelector('#mail').value.trim();
     password = document.querySelector('#pass').value.trim();
 
-    if(username && password) {
-        startPage.classList.add('hidden');
-        startpageContainer.classList.add('hidden');
-        chatRooms.classList.remove('hidden');
-
+    if(username && password && mail) {
+        
+        //connect to client, check if account already exists
+        socket = new SockJS('/KTHchat');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, onConnected, onError);
+        //if not: create new and go to main page
+        if(true) {
+            startPage.classList.add('hidden');
+            chatOverviewPage.classList.remove('hidden');
+            
+        } else{
+            //else: disconnect and display error
+        }
     }
     event.preventDefault();
 }
 
-/*
-function login(event) {
+function loginAccount(event) {
     username = document.querySelector('#name').value.trim();
+    mail = document.querySelector('#mail').value.trim();
     password = document.querySelector('#pass').value.trim();
-    
-    if(username && password) {
-        
-        //connect to stomp server
-        //try authentication
-        
-        //if it works: update page to chatroom overview
-        //else: remain in the same page, show error tag
-        
-       
+
+    if(username && password && mail) {
+       //connect to kth-chat 
+       var socket = new SockJS('/KTHchat');
+       stompClient = Stomp.over(socket);
+       stompClient.connect({}, onConnected, onError);
+
+        //BRA IDE, kolla om controller kan ta emot inkommande requests och antingen köra onConnected (vid success) eller onError (om validering failar)
+       //if true: sign in and go to main page
+        if(true) {  
+            startPage.classList.add('hidden');
+            chatOverviewPage.classList.remove('hidden');
+        }
+        else {
+            //else: disconnet and show error
+        }
     }
     event.preventDefault();
 }
-*/
 
 function joinChat(event) {
     room = event.target.parentElement.id;
     console.log(event.target);
-    console.log("hello");
-    var socket = new SockJS('/KTHchat');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, onConnected, onError);
+
+    //connect to chatroom by subscribing to chosen, change page
+    stompClient.subscribe('/topic/' + room, onMessageReceived);
+    chatOverviewPage.classList.add('hidden');
+    chatPage.classList.remove('hidden');
+    
+    stompClient.send("/app/chat.UserJoin/" + room,
+        {}, JSON.stringify({sender: username, type: 'JOIN'})
+    );
+    connectingElement.classList.add('hidden');
     event.preventDefault();
 }
 
-
 function onConnected() {
-    // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/' + room, onMessageReceived);
-    
-    //change page
-    chatRooms.classList.add('hidden');
-    chatPage.classList.remove('hidden');
-    
-    // Tell your username to the server
-    console.log("connected!")
-    stompClient.send("/app/chat.addUser/" + room,
-        {},
-        JSON.stringify({sender: username, type: 'JOIN'})
-    );
-    
-    //Hide the connecting element
-    connectingElement.classList.add('hidden');
+    //if the connection succed
 }
 
+//if the connection fails
 function onError(error) {
     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
     connectingElement.style.color = 'red';
 }
-
 
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
@@ -107,7 +116,6 @@ function sendMessage(event) {
 
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
-
     var messageElement = document.createElement('li');
 
     if(message.type === 'JOIN') {
@@ -123,7 +131,6 @@ function onMessageReceived(payload) {
         var avatarText = document.createTextNode(message.sender[0]);
         avatarElement.appendChild(avatarText);
         avatarElement.style['background-color'] = getAvatarColor(message.sender);
-
         messageElement.appendChild(avatarElement);
 
         var usernameElement = document.createElement('span');
@@ -135,9 +142,7 @@ function onMessageReceived(payload) {
     var textElement = document.createElement('p');
     var messageText = document.createTextNode(message.content);
     textElement.appendChild(messageText);
-
     messageElement.appendChild(textElement);
-
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
 }
@@ -152,12 +157,14 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-var rooms = document.getElementsByClassName('joinRoom');
 
+//event listener
 console.log(rooms);
-
+rooms.map(room => room.addEventListener('click', joinChat, true))
+/*
 for(var i = 0; i < rooms.length; i++) { 
-  rooms[i].addEventListener('click', joinChat, true);
-}
-loginForm.addEventListener('submit', createAccount, true);
+    rooms[i].addEventListener('click', joinChat, true);
+}*/
+login.addEventListener('submit', createAccount, true);
+register.addEventListener('submit', loginAccount, true);
 messageForm.addEventListener('submit', sendMessage, true);
