@@ -37,6 +37,8 @@ function createAccount(event) {
         socket = new SockJS('/KTHchat');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, onConnected, onError);
+        
+        
         //if not: create new and go to main page
         if(true) {
             startPage.classList.add('hidden');
@@ -90,11 +92,15 @@ function joinChat(event) {
 }
 
 function onConnected() {
-    //if the connection succed
+    console.log("connection succes");
+    stompClient.send("/app/addUser/" + room,
+        {}, JSON.stringify({username: username,sender: username, type: 'JOIN'})
+    );
 }
 
 //if the connection fails
 function onError(error) {
+    console.log("CONNECTION FAILED");
     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
     connectingElement.style.color = 'red';
 }
