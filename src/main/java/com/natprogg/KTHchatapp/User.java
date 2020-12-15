@@ -80,7 +80,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.natprogg.KTHchatapp.User[ id=" + id + " ]";
+        return "id: " + id + " username: " + username + " email: " + email + " password: "+ password;
     }
     
 }

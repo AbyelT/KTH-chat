@@ -1,3 +1,9 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 //pages & components
 var startPage = document.querySelector('#start-page');
 var header = document.querySelector('.header');
@@ -27,53 +33,6 @@ var userColors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-//function createAccount(event) {
-//    username = document.querySelector('#name').value.trim();
-//    mail = document.querySelector('#mail').value.trim();
-//    password = document.querySelector('#pass').value.trim();
-//    console.log(username);
-//    console.log(mail);
-//    console.log(password);
-//    if(username && password && mail) {
-//        console.log("did we get here");
-//        //connect to client, check if account already exists
-//        socket = new SockJS('/KTHchat');
-//        stompClient = Stomp.over(socket);
-//        stompClient.connect({}, onConnected, onError);
-//        
-//        
-//        //if not: create new and go to main page
-//        if(true) {
-//            startPage.classList.add('hidden');
-//            chatOverviewPage.classList.remove('hidden');
-//            
-//        } else{
-//            //else: disconnect and display error
-//        }
-//    }
-//    event.preventDefault();
-//}
-
-//function loginAccount(event) {
-//    console.log("login function");
-//    username = document.querySelector('#name').value.trim();
-//    mail = document.querySelector('#mail').value.trim();
-//    password = document.querySelector('#pass').value.trim();
-//
-//    if(username && password && mail) {
-//       //connect to kth-chat 
-//       var socket = new SockJS('/KTHchat');
-//       stompClient = Stomp.over(socket);
-//       stompClient.connect({}, onConnected, onError);
-//       startPage.classList.add('hidden');
-//       chatOverviewPage.classList.remove('hidden');
-//        //BRA IDE, kolla om controller kan ta emot inkommande requests och antingen köra onConnected (vid success) eller onError (om validering failar)
-//       //if true: sign in and go to main page
-//
-//    }
-//    event.preventDefault();
-//}
-
 function joinChat(event) {
     room = event.target.parentElement.id;
     console.log(event.target);
@@ -92,9 +51,9 @@ function joinChat(event) {
 
 function onConnected() {
     console.log("connection success");
-    /*stompClient.send("/app/addUser/" + room,
+    stompClient.send("/app/addUser/" + room,
         {}, JSON.stringify({username: username,sender: username, type: 'JOIN'})
-    );*/
+    );
 }
 
 //if the connection fails
@@ -164,12 +123,12 @@ function getAvatarColor(messageSender) {
 
 
 //event listener
-console.log(rooms);
+//console.log(rooms);
 //rooms.map(room => room.addEventListener('click', joinChat, true));
 
-for(var i = 0; i < rooms.length; i++) { 
-    rooms[i].addEventListener('click', joinChat, true);
-}
+//for(var i = 0; i < rooms.length; i++) { 
+//    rooms[i].addEventListener('click', joinChat, true);
+//}
 //login.addEventListener('click',loginAccount, true);
 //register.addEventListener('click', createAccount, true);
-//messageForm.addEventListener('submit', sendMessage, true);
+messageForm.addEventListener('submit', sendMessage, true);

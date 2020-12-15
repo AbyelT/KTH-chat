@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Chat overview</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/main.css" />
+    </head>
+    <body>
+        <div>This is the chat page</div>
+        <!-- The chatroom, all messages are seen here -->
+        <div id="chat-page" class="hidden">
+            <div class="chat-container">
+                <div class="leave-room">
+                    <button class="leave-btn" type="button">Leave room</button>
+                </div>
+                <div class="chat-header">
+                    <h2>Room: "roomname here"</h2>
+                </div>
+                <div class="connecting">
+                    Connecting...
+                </div>
+                <ul id="messageArea">
+
+                </ul>
+                <form id="messageForm" name="messageForm">
+                    <div id="message-box">
+                        <input type="text" id="message" placeholder="Type a message..." autocomplete="off"/>
+                        <button type="submit" class="primary">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+        <script src="/js/chatroomOverview.js"></script>
+    </body>
+</html>
