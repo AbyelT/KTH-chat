@@ -2,8 +2,9 @@
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <meta charset="utf-8">
         <title>KTH-chat</title>
-        <link rel="stylesheet" href="/css/main.css"/>
+        <link rel="stylesheet" href="/css/main.css" /> 
     </head>
     <body>
         <noscript>
@@ -20,77 +21,30 @@
     <div id="start-page" class="hidden">
         <div id="start-page-container">
             <h2 class="login-title">Login</h2>
-            <form id="loginForm" name="loginForm" action="/chatroomOverview.html" method="POST">
+            <form id="loginForm" name="loginForm" action="/add" method="POST">
                 <div class="form-group">
-                    <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
+                    <input type="text" id="name" name="username" placeholder="Username" autocomplete="off" class="form-control" required/>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="mail" placeholder="Mail" autocomplete="off" class="form-control" />
+                    <input type="text" id="mail" name="email" placeholder="Mail" autocomplete="off" class="form-control" required/>
                 </div>
                 <div class="form-group">
-                    <input type="password" id="pass" placeholder="Password" autocomplete="off" class="form-control" />
+                    <input type="password" id="pass" name="password" placeholder="Password" autocomplete="off" class="form-control" required/>
                 </div>
                 <div id="start-buttons"> 
-                    <div class="start-btn" id="login">
-                        <button type="submit">Login</button>
+                    <div class="start-btn" >
+                        <button id="login" type="submit" name="login">Login</button>
                     </div>
-                    <div class="start-btn" id="register">
-                        <button type="submit">Register</button>
+                    <div class="start-btn" >
+                        <button id="register" type="submit"  name="register">Register</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-
-    <!-- The chatroom overview, this is where all the rooms will go! -->
-    <div id="chat-rooms" class="hidden">
-        <ul id="roomsArea">
-            <li style="display: block; width:100%;">
-                <div id="room1" style ="display:inline-block; width:100%;">
-                    <h2>Test_room_1</h2>
-                    <button name="joinRoom" type="button" class="joinRoom">Join</button>
-                </div>
-            </li>
-            <li style="display: block; width:100%;">
-                <div id="room2" style ="display:inline-block; width:100%;">
-                    <h2>Test_room_2</h2>
-                    <button name="joinRoom" type="button" class="joinRoom">Join</button>
-                </div>
-            </li>
-            <li style="display: block; width:100%;">
-                <div id="room3" style ="display:inline-block; width:100%;">
-                    <h2>Test_room_3</h2>
-                    <button name="joinRoom" type="button" class="joinRoom">Join</button>
-                </div>
-            </li>
-        </ul> 
-    </div>
-
-    <!-- The chatroom, all messages are seen here -->
-    <div id="chat-page" class="hidden">
-        <div class="chat-container">
-            <div class="leave-room">
-                <button class="leave-btn" type="button">Leave room</button>
-            </div>
-            <div class="chat-header">
-                <h2>Room: "roomname here"</h2>
-            </div>
-            <div class="connecting">
-                Connecting...
-            </div>
-            <ul id="messageArea">
-
-            </ul>
-            <form id="messageForm" name="messageForm">
-                <div id="message-box">
-                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off"/>
-                    <button type="submit" class="primary">Send</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    
+    </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script src="/js/main.js"></script>
-    </body>
 </html>
