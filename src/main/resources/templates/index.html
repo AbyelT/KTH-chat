@@ -6,7 +6,11 @@
         <title>KTH-chat</title>
         <link rel="stylesheet" href="/css/main.css" />
         
-        
+        <script type="text/javascript">
+            function saveUser() {
+                window.localStorage.setItem("username", document.querySelector("#name").value);
+            }
+        </script>
     </head>
     <body>
         <noscript>
@@ -35,10 +39,10 @@
                 </div>
                 <div id="start-buttons"> 
                     <div class="start-btn" >
-                        <button id="login" type="submit" name="login" formaction="/login">Login</button>
+                        <button id="login" type="submit" name="login" formaction="/login" onClick="saveUser()">Login</button>
                     </div>
                     <div class="start-btn" >
-                        <button id="register" type="submit"  name="register" formaction="/add">Register</button>
+                        <button id="register" type="submit"  name="register" formaction="/add" onClick="saveUser()">Register</button>
                     </div>
                 </div>
             </form>

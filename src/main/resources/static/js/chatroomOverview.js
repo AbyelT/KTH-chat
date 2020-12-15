@@ -127,6 +127,8 @@ if(socket == null) {
     var socket = new SockJS('/KTHchat');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, onConnected, onError);
+    username = localStorage.getItem("username");
+    console.log(username);
 }
 //event listener
 console.log(rooms);

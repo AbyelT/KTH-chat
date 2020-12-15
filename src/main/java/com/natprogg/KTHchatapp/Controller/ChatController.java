@@ -54,6 +54,7 @@ public class ChatController {
     public Chat joinChat(@DestinationVariable String room, @Payload Chat Chat, SimpMessageHeaderAccessor headerAccessor) {   
         // Add username in web socket session
         headerAccessor.getSessionAttributes().put("username", Chat.getSender());
+        System.out.println(Chat.getSender());
         return Chat;
     }
 
