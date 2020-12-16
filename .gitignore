@@ -4,6 +4,12 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+
+### project files to ignore ###
+pom.xml
+nbactions.xml
+application.properties
+
 ### STS ###
 .apt_generated
 .classpath
@@ -28,6 +34,7 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+
 
 ### VS Code ###
 .vscode/
