@@ -3,7 +3,7 @@ var startPage = document.querySelector('#start-page');
 var header = document.querySelector('.header');
 var chatOverviewPage = document.querySelector('#chat-rooms');
 var chatPage = document.querySelector('#chat-page');
-var connectingElement = document.querySelector('.connecting');
+var connectingElement = document.getElementsByClassName('.connecting');
 var rooms = document.getElementsByClassName('joinRoom');
 
 //buttons & input
@@ -13,6 +13,7 @@ var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var loginForm = document.querySelector('#loginForm');
+var leaveBtn = document.querySelector('#leave-btn');
 
 //variables
 var stompClient = null;
@@ -21,6 +22,7 @@ var username = "test";
 var mail = null;
 var password = null;
 var room = null;
+var roomId = null;
 
 var userColors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -34,23 +36,38 @@ function joinChat(event) {
     
     console.log(room);
     console.log(username);
-    //connect to chatroom by subscribing to chosen, change page
-    stompClient.subscribe('/topic/' + room, onMessageReceived);
+    //connect to chatroom by subscribing to the chosen room, change page
+    roomId = stompClient.subscribe('/topic/' + room, onMessageReceived);
+    console.log(roomId);
     chatOverviewPage.classList.add('hidden');
     chatPage.classList.remove('hidden');
     
-    stompClient.send("/app/chat.UserJoin/" + room,
+    
+    console.log(connectingElement);
+    
+    stompClient.send("/app/chat.userJoin/" + room,
         {}, JSON.stringify({sender: username, type: 'JOIN'})
     );
-    
+    //connectingElement.classList.add('hidden');
     //Change location to chat page
     //window.location = "/chat";
     
-    
-    connectingElement.classList.add('hidden');
     event.preventDefault();
 }
 
+function leaveChat(event) {
+    console.log("Leaving the chat!");
+    
+    stompClient.send("/app/chat.sendMessage/" + room,
+        {}, JSON.stringify({sender: username, type: 'LEAVE'})
+    );
+    
+    roomId.unsubscribe();
+    
+    chatOverviewPage.classList.remove('hidden');
+    chatPage.classList.add('hidden');
+    event.preventDefault();
+}
 
 function onConnected() {
     console.log("connection success");
@@ -137,7 +154,7 @@ console.log(rooms);
 for(var i = 0; i < rooms.length; i++) { 
     rooms[i].addEventListener('click', joinChat, true);
 }
-
+leaveBtn.addEventListener('click', leaveChat, true);
 messageForm.addEventListener('submit', sendMessage, true);
 
 

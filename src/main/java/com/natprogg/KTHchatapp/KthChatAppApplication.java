@@ -11,9 +11,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan("com.natprogg")
 //@EnableAutoConfiguration
 //@EntityScan("com.natprogg")
-@EnableJpaRepositories(basePackages="com.natprogg.KTHchatapp")
+@EnableJpaRepositories(basePackages = "com.natprogg.KTHchatapp")
 public class KthChatAppApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(KthChatAppApplication.class, args);
-	}
+
+    public static void main(String[] args) {
+        SpringApplication.run(KthChatAppApplication.class, args);
+    }
 }

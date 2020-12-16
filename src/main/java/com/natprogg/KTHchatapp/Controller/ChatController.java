@@ -33,6 +33,12 @@ public class ChatController {
         return Chat;
     }
     
+//    @MessageMapping("/chat.sendMessage/{room}")
+//    @SendTo("/topic/{room}")
+//    public Chat leaveTheChat(@Payload Chat Chat) {
+//        return Chat;
+//    }
+    
     @MessageMapping("/chat.sendMessage/")
     @SendTo("/topic/")
     public Chat realmessage(@Payload Chat Chat) {
@@ -54,7 +60,7 @@ public class ChatController {
     public Chat joinChat(@DestinationVariable String room, @Payload Chat Chat, SimpMessageHeaderAccessor headerAccessor) {   
         // Add username in web socket session
         headerAccessor.getSessionAttributes().put("username", Chat.getSender());
-        System.out.println(Chat.getSender());
+        headerAccessor.getSessionAttributes().put("room", room);
         return Chat;
     }
 

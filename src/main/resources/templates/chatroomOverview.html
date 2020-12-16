@@ -12,12 +12,9 @@ and open the template in the editor.
         <link rel="stylesheet" href="/css/main.css" />
     </head>
     <body>
-        <div>Chatroom overview</div>
-        <div class="connecting">
-            Connecting...
-        </div>        
+        <div>Chatroom overview</div>        
         <!-- The chatroom overview, this is where all the rooms will go! -->
-        <div id="chat-rooms" class="hidden">
+        <div id="chat-rooms">
             <ul id="roomsArea">
                 <li style="display: block; width:100%;">
                     <div id="room1" style ="display:inline-block; width:100%;">
@@ -46,7 +43,7 @@ and open the template in the editor.
         <div id="chat-page" class="hidden">
             <div class="chat-container">
                 <div class="leave-room">
-                    <button class="leave-btn" type="button">Leave room</button>
+                    <button id="leave-btn" type="button">Leave room</button>
                 </div>
                 <div class="chat-header">
                     <h2>Room: "roomname here"</h2>
