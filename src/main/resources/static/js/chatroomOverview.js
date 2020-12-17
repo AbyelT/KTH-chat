@@ -31,6 +31,12 @@ var userColors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
+function joinChat(event) {
+    var room = event.target.parentElement.id;
+    window.localStorage.setItem("room", room);
+    window.localStorage.setItem("session", stompClient);
+}
+
 
 function joinChat(event) {
     room = event.target.parentElement.id;
@@ -39,9 +45,7 @@ function joinChat(event) {
     console.log(room);
     console.log(username);
     
-    
     stompClient.subscribe("/user/" + username + "/reply", onHistoryReceived);
-    
     
     //connect to chatroom by subscribing to the chosen room, change page
     roomId = stompClient.subscribe('/topic/' + room, onMessageReceived);
@@ -189,7 +193,8 @@ function getAvatarColor(messageSender) {
     var index = Math.abs(hash % userColors.length);
     return userColors[index];
 }
-if(socket == null) {
+
+if(socket === null) {
     var socket = new SockJS('/KTHchat');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, onConnected, onError);
@@ -201,7 +206,7 @@ console.log(rooms);
 //rooms.map(room => room.addEventListener('click', joinChat, true));
 
 for(var i = 0; i < rooms.length; i++) { 
-    //rooms[i].addEventListener('click', joinChat, true);
+    rooms[i].addEventListener('click', joinChat, true);
 }
 leaveBtn.addEventListener('click', leaveChat, true);
 messageForm.addEventListener('submit', sendMessage, true);
