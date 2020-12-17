@@ -23,23 +23,23 @@ and open the template in the editor.
         <div id="chat-rooms">
             <div>Chatroom overview</div>
             <ul id="roomsArea">
-                <li style="display: block; width:100%;">
+                <li class="roomListItem" style="display: block; width:100%;">
                     <div id="room1" style ="display:inline-block; width:100%;">
-                        <h2>room1</h2>
+                        <h2 class="roomTitle">room1</h2>
                         
                         <a name="joinRoom" class="joinRoom" href="/chat">Join</a>
                     </div>
                 </li>
-                <li style="display: block; width:100%;">
+                <li class="roomListItem" style="display: block; width:100%;">
                     <div id="room2" style ="display:inline-block; width:100%;">
-                        <h2>room2</h2>
+                        <h2 class="roomTitle">room2</h2>
                         
                         <a name="joinRoom" class="joinRoom" href="/chat" >Join</a>
                     </div>
                 </li>
-                <li style="display: block; width:100%;">
+                <li class="roomListItem" style="display: block; width:100%;">
                     <div id="room3" style ="display:inline-block; width:100%;">
-                        <h2>room3</h2>
+                        <h2 class="roomTitle">room3</h2>
                         
                         <a name="joinRoom" class="joinRoom" href="/chat" >Join</a>
                     </div>
@@ -63,7 +63,7 @@ and open the template in the editor.
                 </ul>
                 <form id="messageForm" name="messageForm">
                     <div id="message-box">
-                        <input type="text" id="message" placeholder="Type a message..." autocomplete="off"/>
+                        <input type="text" id="message" placeholder="Type a message..." autocomplete="off" maxlength="255"/>
                         <button type="submit" class="primary">Send</button>
                     </div>
                 </form>
