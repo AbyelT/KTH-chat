@@ -14,10 +14,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     //skapar en WebSocket endpoint för alla clienter att koppla sig till
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/KTHchat").withSockJS();
-        //fetch existing chatrroms from database
-        //for each : add an endpoint
-        //registry.addEndpoint("seriösChat").withSockJS();
-        //registry.addEndpoint("FUN-chat").withSockJS();
     }
 
     @Override

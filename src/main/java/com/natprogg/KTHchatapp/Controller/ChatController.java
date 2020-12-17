@@ -1,22 +1,12 @@
 package com.natprogg.KTHchatapp.Controller;
 import com.natprogg.KTHchatapp.MessageRepository;
-import com.natprogg.KTHchatapp.UserRepository;
 import com.natprogg.KTHchatapp.Model.Chat;
 import com.natprogg.KTHchatapp.User;
 import com.natprogg.KTHchatapp.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.natprogg.KTHchatapp.Model.Login;
 import com.natprogg.KTHchatapp.Model.Message;
-import java.util.List;
-import java.lang.Iterable;
 import java.util.ArrayList;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -49,7 +39,6 @@ public class ChatController {
         Message mess = new Message();
         if(Chat.getType().toString().equals("CHAT")) {
             System.out.println("Storing message in database");
-            System.out.println(Chat.getContent());
             mess.setUsername(Chat.getSender());
             mess.setRoom(room);
             mess.setMessageText(Chat.getContent());
@@ -66,92 +55,63 @@ public class ChatController {
         return Chat;
     }
     
-//    @MessageMapping("/chat.sendMessage/{room}")
-//    @SendTo("/topic/{room}")
-//    public Chat leaveTheChat(@Payload Chat Chat) {
-//        return Chat;
-//    }
-    
     @MessageMapping("/chat.sendMessage/")
     @SendTo("/topic/")
     public Chat realmessage(@Payload Chat Chat) {
         return Chat;
     }
     
-    
-//    @MessageMapping("/chat.addUser")
-//    @SendTo("/topic/{room}")
-//    public Chat addUser(@Payload Chat Chat, SimpMessageHeaderAccessor headerAccessor) {   
-//        // Add username in web socket session
-//        headerAccessor.getSessionAttributes().put("username", Chat.getSender());
-//        return Chat;
-//    }
-    
-    
     @MessageMapping("/chat.userJoin/{room}")
     @SendTo("/topic/{room}")
     public Chat joinChat(@DestinationVariable String room, @Payload Chat Chat, SimpMessageHeaderAccessor headerAccessor) {
-        
         // Add username in web socket session
         headerAccessor.getSessionAttributes().put("username", Chat.getSender());
         headerAccessor.getSessionAttributes().put("room", room);
         
+        //Fetch all messages
         Iterable<Message> messages = MessageRepository.findAll();
         ArrayList<Message> messagesFromRoom;
         messagesFromRoom = new ArrayList();
+        //Sorts out the ones for the appropriate room
         for (Message mess: messages) {
             if(mess.getRoom().equals(room)) {
                 messagesFromRoom.add(mess);
             }
         }
-        System.out.println(messagesFromRoom.get(0).getMessageText());
-        
-        simpMessagingTemplate.convertAndSendToUser(Chat.getSender(), "/reply", messagesFromRoom);
-
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.natprogg_KTH-chat-app_jar_0.0.1-SNAPSHOTPU");  
-//        EntityManager em=emf.createEntityManager();
-//        TypedQuery<Message> query = em.createNamedQuery("Message.findByRoom", Message.class).setParameter("room", room);
-//        List<Message> messages; 
-//        messages = query.getResultList();
-//        System.out.println(messages.get(0));
-        
-        
+        //Send messages to user.
+        simpMessagingTemplate.convertAndSendToUser(Chat.getSender(), "/reply", messagesFromRoom);     
         return Chat;
     }
 
     @PostMapping(path="/login") // Map ONLY POST Requests
     public ModelAndView login (@RequestParam String username
         ,@RequestParam String email, @RequestParam String password) {
-        // @ResponseBody means the returned String is the response, not a view name@ResponseBody String
-        // @RequestParam means it is a parameter from the GET or POST request
+        //Find all users
         Iterable<User> myUsers = userRepository.findAll();
         ModelAndView modelAndView = new ModelAndView();
         boolean foundUser = false;
+        //Check credentials against users in database
         for (User us: myUsers) {
-            
             if (username.equals(us.getUsername()) && email.equals(us.getEmail()) && password.equals(us.getPassword())) {
                 foundUser = true;
                 break;
             }
         }
-        if(foundUser) {
+        if(foundUser) { //If login info is correct
             modelAndView.setViewName("chatroomOverview");
             System.out.println("found user");
             return modelAndView;
         }
-        else {
+        else { //If login info is wrong
            modelAndView.setViewName("index");
            System.out.println("login failed");
            return modelAndView;
         }
     }
     
-    //@MessageMapping("/addUser")
     @PostMapping(path="/add") // Map ONLY POST Requests
     public ModelAndView addNewUser (@RequestParam String username
         ,@RequestParam String email, @RequestParam String password) {
-      // @ResponseBody means the returned String is the response, not a view name@ResponseBody String
-      // @RequestParam means it is a parameter from the GET or POST request
       System.out.println("Creating a user");
         Iterable<User> myUsers = userRepository.findAll();
         ModelAndView modelAndView = new ModelAndView();
@@ -180,14 +140,12 @@ public class ChatController {
                 e.printStackTrace();      
             }
            modelAndView.setViewName("chatRoomOverview");
-           System.out.println("creation starting");
            return modelAndView;
         }
     }
     
     @GetMapping(path="/chat")
     public ModelAndView joinChatRoom() {
-      System.out.println("joining chatroom");
       ModelAndView modelAndView = new ModelAndView();
       modelAndView.setViewName("chat");
       return modelAndView;
@@ -195,32 +153,8 @@ public class ChatController {
     
     @GetMapping(path="/chatroomOverview")
     public ModelAndView leaveChatRoom() {
-      System.out.println("exiting chatroom");
       ModelAndView modelAndView = new ModelAndView();
       modelAndView.setViewName("chatroomOverview");
       return modelAndView;
-    }
-    
-//    @GetMapping(path="/all")
-//    public @ResponseBody Iterable<User> getAllUsers() {
-//      // This returns a JSON or XML with the users
-//      return userRepository.findAll();
-//    }
-    
-    @MessageMapping("/chat.validateUser")
-    @SendTo("/topic/public")
-    public Chat validateUser(@Payload Login auth, SimpMessageHeaderAccessor headerAccessor) {   
-        
-        //create an entityclass User with the given parameters
-        //let user sens it to external database 
-        
-        String testUser = "";
-        String testPass = "";
-
-        if(testUser == auth.getUserid() && testPass == auth.getPassword()) {
-            
-        }
-        
-        return null;
     }
 }
