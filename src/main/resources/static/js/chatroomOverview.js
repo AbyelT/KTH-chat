@@ -39,8 +39,8 @@ function joinChat(event) {
     console.log(room);
     console.log(username);
     
-    //handler?
-    //stompClient.subscribe("/user/queue/reply", handler);
+    
+    stompClient.subscribe("/user/" + username + "/reply", onHistoryReceived);
     
     
     //connect to chatroom by subscribing to the chosen room, change page
@@ -71,7 +71,9 @@ function leaveChat(event) {
     );
     
     roomId.unsubscribe();
+
     messageArea.innerHTML="";
+    messageArea.textContent = '';
     chatOverviewPage.classList.remove('hidden');
     chatPage.classList.add('hidden');
     event.preventDefault();
@@ -150,6 +152,8 @@ function onMessageReceived(payload) {
 }
 
 function onHistoryReceived(payload) {
+    messageArea.innerHTML="";
+    messageArea.textContent="";
     var message = JSON.parse(payload.body);
     console.log(message); //is it object or array?
     for (var i=0; i<message.length; i++)
@@ -160,16 +164,16 @@ function onHistoryReceived(payload) {
         var avatarElement = document.createElement('i');
         var avatarText = document.createTextNode(message[i].username);  //username?
         avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(message[i].sender);   //sender?
+        avatarElement.style['background-color'] = getAvatarColor(message[i].username);   //sender?
         messageElement.appendChild(avatarElement);
 
         var usernameElement = document.createElement('span');
-        var usernameText = document.createTextNode(message.sender);
+        var usernameText = document.createTextNode(message[i].username);
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
         
         var textElement = document.createElement('p');
-        var messageText = document.createTextNode(message.content);
+        var messageText = document.createTextNode(message[i].messageText);
         textElement.appendChild(messageText);
         messageElement.appendChild(textElement);
         messageArea.appendChild(messageElement);
