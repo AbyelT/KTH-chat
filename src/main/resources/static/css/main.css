@@ -69,9 +69,15 @@ body:before {
     font-size: 15px;
     border: 1px solid #c8c8c8;
 }
-
+#name, #mail, #pass {
+    max-width: 250px;
+}
 .form-group {
     margin-bottom: 15px;
+}
+
+#start-buttons {
+    display: inline-block;
 }
 
 input {
@@ -196,7 +202,7 @@ button.accent {
     height: calc(100% - 150px);
 }
 
-#chat-page #messageForm {
+#chat-page {
     padding: 20px;
 }
 
@@ -258,6 +264,13 @@ button.accent {
     float: left;
     width: calc(100% - 85px);
 }
+#message-box {
+    margin-left: 10px;
+}
+
+.leave-room {
+    padding: 5px;
+}
 
 #messageForm .input-group button {
     float: left;
@@ -265,7 +278,9 @@ button.accent {
     height: 38px;
     margin-left: 5px;
 }
-
+#messageForm {
+    margin: 5px;
+}
 .chat-header {
     text-align: center;
     padding: 15px;

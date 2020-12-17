@@ -12,27 +12,34 @@ and open the template in the editor.
         <link rel="stylesheet" href="/css/main.css" />
     </head>
     <body>
-        <div>Chatroom overview</div>        
+        <!--The header, follows everywhere-->
+        <div class="header">
+            <h1 id="header-title">KTH-chat</h1>
+            <h3>A chat for KTH students!</h3>
+            <Button id="logoutBtn">Logout</button>
+        </div>
+
         <!-- The chatroom overview, this is where all the rooms will go! -->
         <div id="chat-rooms">
+            <div>Chatroom overview</div>
             <ul id="roomsArea">
                 <li style="display: block; width:100%;">
                     <div id="room1" style ="display:inline-block; width:100%;">
-                        <h2>Test_room_1</h2>
+                        <h2>room1</h2>
                         
                         <a name="joinRoom" class="joinRoom" href="/chat">Join</a>
                     </div>
                 </li>
                 <li style="display: block; width:100%;">
                     <div id="room2" style ="display:inline-block; width:100%;">
-                        <h2>Test_room_2</h2>
+                        <h2>room2</h2>
                         
                         <a name="joinRoom" class="joinRoom" href="/chat" >Join</a>
                     </div>
                 </li>
                 <li style="display: block; width:100%;">
                     <div id="room3" style ="display:inline-block; width:100%;">
-                        <h2>Test_room_3</h2>
+                        <h2>room3</h2>
                         
                         <a name="joinRoom" class="joinRoom" href="/chat" >Join</a>
                     </div>
@@ -46,7 +53,7 @@ and open the template in the editor.
                     <button id="leave-btn" type="button">Leave room</button>
                 </div>
                 <div class="chat-header">
-                    <h2>Room: "roomname here"</h2>
+                    <h2 id="chatroom-name">Room: "roomname here"</h2>
                 </div>
                 <div class="connecting">
                     Connecting...
