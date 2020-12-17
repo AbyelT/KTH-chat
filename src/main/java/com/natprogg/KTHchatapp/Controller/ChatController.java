@@ -190,7 +190,14 @@ public class ChatController {
       System.out.println("joining chatroom");
       ModelAndView modelAndView = new ModelAndView();
       modelAndView.setViewName("chat");
-      
+      return modelAndView;
+    }
+    
+    @GetMapping(path="/chatroomOverview")
+    public ModelAndView leaveChatRoom() {
+      System.out.println("exiting chatroom");
+      ModelAndView modelAndView = new ModelAndView();
+      modelAndView.setViewName("chatroomOverview");
       return modelAndView;
     }
     
