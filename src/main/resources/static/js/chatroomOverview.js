@@ -32,7 +32,7 @@ var userColors = [
 ];
 
 
-/*function joinChat(event) {
+function joinChat(event) {
     room = event.target.parentElement.id;
     console.log(event.target);
     
@@ -61,7 +61,7 @@ var userColors = [
     );
 
     event.preventDefault();
-}*/
+}
 
 function leaveChat(event) {
     console.log("Leaving the chat!");
