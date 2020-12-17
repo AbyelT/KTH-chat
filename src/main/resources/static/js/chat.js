@@ -1,18 +1,13 @@
 //pages & components
-var startPage = document.querySelector('#start-page');
 var header = document.querySelector('.header');
-var chatOverviewPage = document.querySelector('#chat-rooms');
 var chatPage = document.querySelector('#chat-page');
 var connectingElement = document.querySelector('.connecting');
 var rooms = document.getElementsByClassName('joinRoom');
 
 //buttons & input
-var login = document.querySelector('#login');
-var register = document.querySelector('#register');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
-var loginForm = document.querySelector('#loginForm');
 var leaveBtn = document.querySelector('#leave-btn');
 var logoutBtn = document.querySelector('#logoutBtn');
 var chatroomName = document.querySelector('#chatroom-name');
@@ -21,8 +16,6 @@ var chatroomName = document.querySelector('#chatroom-name');
 var stompClient = null;
 var socket = null;
 var username = "test";
-var mail = null;
-var password = null;
 var room = null;
 var roomId = null;
 
@@ -31,16 +24,8 @@ var userColors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-
 function leaveChat(event) {
     console.log("Leaving the chat!");
-    /*
-    stompClient.send("/app/chat.sendMessage/" + room,
-        {}, JSON.stringify({sender: username, type: 'LEAVE'})
-    );
-     * 
-     */
-    
     roomId.unsubscribe();
     messageArea.innerHTML="";
     messageArea.textContent = '';
@@ -48,7 +33,7 @@ function leaveChat(event) {
 }
 
 function logout(event) {
-    stompClient.disconnect(function() {
+  stompClient.disconnect(function() {
     alert("See you next time!");
   });
   localStorage.clear();
@@ -161,10 +146,13 @@ username = localStorage.getItem("username");
 var socket = new SockJS('/KTHchat');
 stompClient = Stomp.over(socket);
 stompClient.connect({}, () => {
+    console.log(username)
+    console.log(room);
+    
     stompClient.subscribe("/user/" + username + "/reply", onHistoryReceived);
     //connect to chatroom by subscribing to the chosen room, change page
     roomId = stompClient.subscribe('/topic/' + room, onMessageReceived);
-    console.log(roomId);
+    console.log('roomid: ' + roomId);
     //Hide connecting element
     connectingElement.textContent = "";
     connectingElement.style.display = "none";

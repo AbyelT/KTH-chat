@@ -30,11 +30,9 @@ public class WebSocketEventListener {
         if(username != null) {
             System.out.println("user disconnecting");
             logger.info("User Disconnected : " + username);
-
             Chat chat = new Chat();
             chat.setType(Chat.MessageType.LEAVE);
             chat.setSender(username);
-
             messagingTemplate.convertAndSend("/topic/" + room, chat);
         }
     }

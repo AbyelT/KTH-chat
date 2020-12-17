@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Chat overview</title>
@@ -12,9 +7,15 @@ and open the template in the editor.
         <link rel="stylesheet" href="/css/main.css" />
     </head>
     <body>
-        
+        <div class="header">
+            <h1 id="header-title">KTH-chat</h1>
+            <h3>A chat for KTH students!</h3>
+            <Button id="logoutBtn">Logout</button>
+        </div>
         <!-- The chatroom, all messages are seen here -->
-               <!-- The chatroom, all messages are seen here -->
+        <div class="connecting">
+                    Connecting...
+        </div>
         <div id="chat-page">
             <div class="chat-container">
                 <div class="leave-room">
@@ -22,9 +23,6 @@ and open the template in the editor.
                 </div>
                 <div class="chat-header">
                     <h2 id="chatroom-name">Room: "roomname here"</h2>
-                </div>
-                <div class="connecting">
-                    Connecting...
                 </div>
                 <ul id="messageArea">
 
