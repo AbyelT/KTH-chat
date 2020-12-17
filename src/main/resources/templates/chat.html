@@ -12,15 +12,16 @@ and open the template in the editor.
         <link rel="stylesheet" href="/css/main.css" />
     </head>
     <body>
-        <div>This is the chat page</div>
+        
         <!-- The chatroom, all messages are seen here -->
-        <div id="chat-page" class="hidden">
+               <!-- The chatroom, all messages are seen here -->
+        <div id="chat-page">
             <div class="chat-container">
                 <div class="leave-room">
-                    <button class="leave-btn" type="button">Leave room</button>
+                    <button id="leave-btn" type="button">Leave room</button>
                 </div>
                 <div class="chat-header">
-                    <h2>Room: "roomname here"</h2>
+                    <h2 id="chatroom-name">Room: "roomname here"</h2>
                 </div>
                 <div class="connecting">
                     Connecting...
@@ -30,7 +31,7 @@ and open the template in the editor.
                 </ul>
                 <form id="messageForm" name="messageForm">
                     <div id="message-box">
-                        <input type="text" id="message" placeholder="Type a message..." autocomplete="off"/>
+                        <input type="text" id="message" placeholder="Type a message..." autocomplete="off" maxlength="255"/>
                         <button type="submit" class="primary">Send</button>
                     </div>
                 </form>

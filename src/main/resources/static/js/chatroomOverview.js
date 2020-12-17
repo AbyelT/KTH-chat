@@ -32,7 +32,7 @@ var userColors = [
 ];
 
 
-function joinChat(event) {
+/*function joinChat(event) {
     room = event.target.parentElement.id;
     console.log(event.target);
     
@@ -61,7 +61,7 @@ function joinChat(event) {
     );
 
     event.preventDefault();
-}
+}*/
 
 function leaveChat(event) {
     console.log("Leaving the chat!");
@@ -162,7 +162,7 @@ function onHistoryReceived(payload) {
         messageElement.classList.add('chat-message');
 
         var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message[i].username);  //username?
+        var avatarText = document.createTextNode(message[i].username.charAt(0));  //username?
         avatarElement.appendChild(avatarText);
         avatarElement.style['background-color'] = getAvatarColor(message[i].username);   //sender?
         messageElement.appendChild(avatarElement);
@@ -201,7 +201,7 @@ console.log(rooms);
 //rooms.map(room => room.addEventListener('click', joinChat, true));
 
 for(var i = 0; i < rooms.length; i++) { 
-    rooms[i].addEventListener('click', joinChat, true);
+    //rooms[i].addEventListener('click', joinChat, true);
 }
 leaveBtn.addEventListener('click', leaveChat, true);
 messageForm.addEventListener('submit', sendMessage, true);

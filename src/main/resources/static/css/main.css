@@ -258,6 +258,9 @@ button.accent {
 
 #chat-page .chat-message p {
     color: #43464b;
+    display: block; 
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
 
 #messageForm .input-group input {

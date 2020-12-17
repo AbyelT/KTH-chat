@@ -153,25 +153,41 @@ public class ChatController {
       // @ResponseBody means the returned String is the response, not a view name@ResponseBody String
       // @RequestParam means it is a parameter from the GET or POST request
       System.out.println("Creating a user");
-      User n = new User();
-      n.setUsername(username);
-      n.setEmail(email);
-      n.setPassword(password);
-      
-      //save to database
-      try {
-          userRepository.save(n);
-      }catch(Exception e) {
-          e.printStackTrace();      
-      }
-      ModelAndView modelAndView = new ModelAndView();
-      modelAndView.setViewName("chatroomOverview");
-      
-      return modelAndView;
+        Iterable<User> myUsers = userRepository.findAll();
+        ModelAndView modelAndView = new ModelAndView();
+        boolean foundUser = false;
+        for (User us: myUsers) {
+            if (username.equals(us.getUsername()) && email.equals(us.getEmail()) && password.equals(us.getPassword())) {
+                foundUser = true;
+                break;
+            }
+        }
+        if(foundUser) {
+            modelAndView.setViewName("index");
+            System.out.println("User already exists");
+            return modelAndView;
+        }
+        else {
+            User n = new User();
+            n.setUsername(username);
+            n.setEmail(email);
+            n.setPassword(password);
+
+            //save to database
+            try {
+                userRepository.save(n);
+            }catch(Exception e) {
+                e.printStackTrace();      
+            }
+           modelAndView.setViewName("chatRoomOverview");
+           System.out.println("creation starting");
+           return modelAndView;
+        }
     }
     
     @GetMapping(path="/chat")
     public ModelAndView joinChatRoom() {
+      System.out.println("joining chatroom");
       ModelAndView modelAndView = new ModelAndView();
       modelAndView.setViewName("chat");
       
