@@ -3,7 +3,7 @@ var startPage = document.querySelector('#start-page');
 var header = document.querySelector('.header');
 var chatOverviewPage = document.querySelector('#chat-rooms');
 var chatPage = document.querySelector('#chat-page');
-var connectingElement = document.getElementsByClassName('.connecting');
+var connectingElement = document.querySelector('.connecting');
 var rooms = document.getElementsByClassName('joinRoom');
 
 //buttons & input
@@ -14,6 +14,8 @@ var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var loginForm = document.querySelector('#loginForm');
 var leaveBtn = document.querySelector('#leave-btn');
+var logoutBtn = document.querySelector('#logoutBtn');
+var chatroomName = document.querySelector('#chatroom-name');
 
 //variables
 var stompClient = null;
@@ -36,22 +38,28 @@ function joinChat(event) {
     
     console.log(room);
     console.log(username);
+    
+    //handler?
+    //stompClient.subscribe("/user/queue/reply", handler);
+    
+    
     //connect to chatroom by subscribing to the chosen room, change page
     roomId = stompClient.subscribe('/topic/' + room, onMessageReceived);
     console.log(roomId);
+    //Hide connecting element
+    connectingElement.textContent = "";
+    connectingElement.style.display = "none";
+    
     chatOverviewPage.classList.add('hidden');
     chatPage.classList.remove('hidden');
-    
+    chatroomName.innerHTML = room;
     
     console.log(connectingElement);
     
     stompClient.send("/app/chat.userJoin/" + room,
         {}, JSON.stringify({sender: username, type: 'JOIN'})
     );
-    //connectingElement.classList.add('hidden');
-    //Change location to chat page
-    //window.location = "/chat";
-    
+
     event.preventDefault();
 }
 
@@ -63,10 +71,18 @@ function leaveChat(event) {
     );
     
     roomId.unsubscribe();
-    
+    messageArea.innerHTML="";
     chatOverviewPage.classList.remove('hidden');
     chatPage.classList.add('hidden');
     event.preventDefault();
+}
+
+function logout(event) {
+    stompClient.disconnect(function() {
+    alert("See you next time!");
+  });
+  localStorage.clear();
+  window.location = "/";
 }
 
 function onConnected() {
@@ -82,6 +98,7 @@ function onConnected() {
 function onError(error) {
     console.log("CONNECTION FAILED");
     connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
+    connectingElement.style.display = "block";
     connectingElement.style.color = 'red';
 }
 
@@ -156,5 +173,5 @@ for(var i = 0; i < rooms.length; i++) {
 }
 leaveBtn.addEventListener('click', leaveChat, true);
 messageForm.addEventListener('submit', sendMessage, true);
-
+logoutBtn.addEventListener('click', logout, true);
 

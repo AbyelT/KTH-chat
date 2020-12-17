@@ -2,7 +2,7 @@ package com.natprogg.KTHchatapp.Model;
 
 public class Chat {
 
- private MessageType type;
+    private MessageType type;
     private String content;
     private String sender;
 
