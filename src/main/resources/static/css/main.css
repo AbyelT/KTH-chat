@@ -90,7 +90,12 @@ body {
 }
 
 #start-buttons {
-    display: inline-block;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+.start-btn {
+    margin: 5px;
 }
 
 input {
@@ -146,18 +151,51 @@ button.accent {
 }
 
 .header{
-    display: block;
-    font-size: 30px;
+    
+    font-size: 20px;
     text-align: center;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 75px;
     position: relative;
     z-index: 0;
     background: lightblue;
+    
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: space-between;
+
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 #header-title{
-    padding:0px;
     margin:0px;
+    margin-left: 20px;
+    display: flex;
+    max-width: 30%;
+    align-items: center;
+    justify-content: flex-start;
+    float:left;
+}
+#header-text {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    max-width: 30%;
+}
+#logoutBtn {
+    display:flex;
+    float:right;
+    margin:0px;
+    margin-right:15px;
+    height:50%;
+    align-items: center;
+    justify-content:flex-end;
 }
 
 #start-page {
