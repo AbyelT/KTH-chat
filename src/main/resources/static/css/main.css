@@ -21,46 +21,57 @@ body {
     height: 100%;
 }
 
-/*
-body:before {
-    height: 50%;
-    width: 100%;
-    position: absolute;
-    z-index: 0;
-    background: cornflowerblue;
-    top: 0;
-    left: 0;
-    content: "";
-}
-#page-header {
-    position: relative;
-    z-index: 10;
-}
 #chat-rooms {
-    max-width: 700px;
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
     background-color: #fff;
     box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
-    margin-top: 30px;
+    margin-top: 40px;
     height: calc(100% - 60px);
     max-height: 600px;
     position: relative;
     z-index: 1000;
 }
+
 #roomsArea {
     display: block;
+    padding: 20px 0px 0px 0px;
 }
-*/
+
+.roomListItem {
+    display: block; 
+    border-style: solid;
+    border-color:#c8c8c8;
+    border-radius: 20px;
+    margin: 20px 20px;
+} 
+
+.roomTitle {
+    display: inline-block; 
+    margin-left: 20px;
+    width:85%;
+}
+
+.joinRoom {
+    display: inline-block; 
+    width:15%;
+    background-color: lightskyblue;
+    border-style: solid;
+    border-color: lightgray;
+    padding:10px 20px;
+    border-radius: 10px;
+    transition: background-color 2s;
+}
+
+.joinRoom:hover {
+    background-color: lightblue;
+}
 
 .clearfix:after {
     display: block;
     content: "";
     clear: both;
-}
-
-.hidden {
-    display: none;
 }
 
 .form-control {
@@ -69,9 +80,11 @@ body:before {
     font-size: 15px;
     border: 1px solid #c8c8c8;
 }
+
 #name, #mail, #pass {
     max-width: 250px;
 }
+
 .form-group {
     margin-bottom: 15px;
 }
@@ -95,7 +108,8 @@ h1 {
 }
 
 a {
-    color: #128ff2;
+    color: whitesmoke;
+    text-decoration: none;
 }
 
 button {
