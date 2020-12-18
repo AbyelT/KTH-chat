@@ -55,7 +55,6 @@ body {
 
 .joinRoom {
     display: inline-block; 
-    width:15%;
     background-color: lightskyblue;
     border-style: solid;
     border-color: lightgray;
@@ -188,14 +187,20 @@ button.accent {
     justify-content: center;
     max-width: 30%;
 }
-#logoutBtn {
+#user-div {
     display:flex;
     float:right;
-    margin:0px;
-    margin-right:15px;
-    height:50%;
+    margin:0px 20px 0px 0px;
     align-items: center;
     justify-content:flex-end;
+}
+#username-text {
+    height:50%;
+    margin-right:30px;
+    padding-left:30px;
+}
+#logoutBtn {
+    height:50%;
 }
 
 #start-page {

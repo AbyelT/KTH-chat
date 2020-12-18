@@ -2,7 +2,7 @@
 var header = document.querySelector('.header');
 var chatPage = document.querySelector('#chat-page');
 var connectingElement = document.querySelector('.connecting');
-var rooms = document.getElementsByClassName('joinRoom');
+var userInSession = document.querySelector('#username-text');
 
 //buttons & input
 var messageForm = document.querySelector('#messageForm');
@@ -160,8 +160,9 @@ stompClient.connect({}, () => {
     //chatOverviewPage.classList.add('hidden');
     //chatPage.classList.remove('hidden');
     chatroomName.innerHTML = room;
-    console.log(connectingElement);
+    userInSession.innerHTML = username;
 
+    console.log(connectingElement);
     stompClient.send("/app/chat.userJoin/" + room,
         {}, JSON.stringify({sender: username, type: 'JOIN'})
     );

@@ -2,6 +2,7 @@
 var header = document.querySelector('.header');
 var chatOverviewPage = document.querySelector('#chat-rooms');
 var rooms = document.getElementsByClassName('joinRoom');
+var userInSession = document.querySelector('#username-text');
 
 //buttons & input
 var logoutBtn = document.querySelector('#logoutBtn');
@@ -138,7 +139,8 @@ if(socket === null) {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, onConnected, onError);
     username = localStorage.getItem("username");
-    console.log(username);
+    userInSession.innerHTML = username;
+//    console.log(username);
 }
 //event listener
 console.log(rooms);
