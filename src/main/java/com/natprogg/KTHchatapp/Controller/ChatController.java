@@ -73,6 +73,7 @@ public class ChatController {
         return Chat;
     }
     
+    //Create and send this page to user
     @GetMapping(path="/chat")
     public ModelAndView joinChatRoom() {
       ModelAndView modelAndView = new ModelAndView();
@@ -80,6 +81,7 @@ public class ChatController {
       return modelAndView;
     }
     
+    //Create and send this page to user
     @GetMapping(path="/chatroomOverview")
     public ModelAndView leaveChatRoom() {
       ModelAndView modelAndView = new ModelAndView();

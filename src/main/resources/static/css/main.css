@@ -327,7 +327,10 @@ button.accent {
 #message-box {
     margin-left: 10px;
 }
-
+#leave-btn {
+    background-color: #1ebea5;
+    padding: 5px;
+}
 .leave-room {
     padding: 5px;
 }

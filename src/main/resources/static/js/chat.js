@@ -101,11 +101,12 @@ function onMessageReceived(payload) {
     messageArea.scrollTop = messageArea.scrollHeight;
 }
 
+//When old messages are received, create elements for them...
 function onHistoryReceived(payload) {
     messageArea.innerHTML="";
     messageArea.textContent="";
     var message = JSON.parse(payload.body);
-    console.log(message); //is it object or array?
+    //console.log(message); //is it object or array?
     for (var i=0; i<message.length; i++)
     {
         var messageElement = document.createElement('li');
@@ -140,17 +141,22 @@ function getAvatarColor(messageSender) {
     return userColors[index];
 }
 
+//We saved room and username in localstorage
 room = localStorage.getItem("room");
 username = localStorage.getItem("username");
 
+
+//Open new websocket connection using SockJS and Spring websockets.
 var socket = new SockJS('/KTHchat');
 stompClient = Stomp.over(socket);
 stompClient.connect({}, () => {
     console.log(username)
     console.log(room);
     
+    //Subscribe to onHistoryReceived to get old messages
     stompClient.subscribe("/user/" + username + "/reply", onHistoryReceived);
     //connect to chatroom by subscribing to the chosen room, change page
+    //roomId now stores stompClient stuff so we can use unsubscribe on it to disconnect from websocket session
     roomId = stompClient.subscribe('/topic/' + room, onMessageReceived);
     console.log('roomid: ' + roomId);
     //Hide connecting element

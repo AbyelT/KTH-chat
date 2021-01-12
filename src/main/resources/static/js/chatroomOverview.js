@@ -23,9 +23,11 @@ var userColors = [
 function joinChat(event) {
     var room = event.target.parentElement.id;
     console.log(room)
+    //When we join a chat set the roomid in localstorage.
     window.localStorage.setItem("room", room);
 }
 
+//function which handles logout
 function logout(event) {
     stompClient.disconnect(function() {
     alert("See you next time!");
@@ -134,6 +136,7 @@ function getAvatarColor(messageSender) {
     return userColors[index];
 }
 
+//If we are not connected to a websocket due to some error, create it here
 if(socket === null) {
     var socket = new SockJS('/KTHchat');
     stompClient = Stomp.over(socket);
@@ -142,11 +145,14 @@ if(socket === null) {
     userInSession.innerHTML = username;
 //    console.log(username);
 }
-//event listener
-console.log(rooms);
+
+//console.log(rooms);
+//event listeners for join room buttons
 for(var i = 0; i < rooms.length; i++) { 
     rooms[i].addEventListener('click', joinChat, true);
 }
 //leaveBtn.addEventListener('click', leaveChat, true);
 //messageForm.addEventListener('submit', sendMessage, true);
+
+//Eventlistener for logout button.
 logoutBtn.addEventListener('click', logout, true);
